@@ -63,16 +63,16 @@ export const Navigation = () => {
 
   const resetWidth = () => {
     if (sidebarRef.current && navbarRef.current) {
-      setIsCollapsed(false);
-      setIsResetting(true);
+        setIsCollapsed(false);
+        setIsResetting(true);
 
-      sidebarRef.current.style.width = isMobile ? "100%" : "240px";
-      navbarRef.current.style.setProperty("width", isMobile ? "0" : "calc(100% - 240px)");
-      navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
+        sidebarRef.current.style.width = isMobile ? "100%" : "240px";
+        navbarRef.current.style.setProperty("width", isMobile ? "0" : "calc(100% - 240px)");
+        navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
 
-      setTimeout(() => setIsResetting(false), 300);
+        setTimeout(() => setIsResetting(false), 300);
     }
-  };
+};
 
   const collapse = () => {
     if (sidebarRef.current && navbarRef.current) {
@@ -117,7 +117,7 @@ export const Navigation = () => {
           onClick={resetWidth}
           className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0"
         />
-      </aside >
+      </aside>
       <div
         ref={navbarRef}
         className={cn(
