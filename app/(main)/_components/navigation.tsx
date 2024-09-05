@@ -3,14 +3,17 @@ import { ChevronsLeft, MenuIcon } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { ElementRef, useEffect, useRef, useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
+import { useQuery } from "convex/react"
 
 import { UserItem } from "./user-Item"
 
 import { cn } from "@/lib/utils"
+import { api } from "@/convex/_generated/api"
 
 export const Navigation = () => {
   const pathname = usePathname();
-  const isMobile = useMediaQuery("(max-width: 768px)")
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const documents = useQuery(api.document.get);
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -65,16 +68,16 @@ export const Navigation = () => {
 
   const resetWidth = () => {
     if (sidebarRef.current && navbarRef.current) {
-        setIsCollapsed(false);
-        setIsResetting(true);
+      setIsCollapsed(false);
+      setIsResetting(true);
 
-        sidebarRef.current.style.width = isMobile ? "100%" : "240px";
-        navbarRef.current.style.setProperty("width", isMobile ? "0" : "calc(100% - 240px)");
-        navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
+      sidebarRef.current.style.width = isMobile ? "100%" : "240px";
+      navbarRef.current.style.setProperty("width", isMobile ? "0" : "calc(100% - 240px)");
+      navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
 
-        setTimeout(() => setIsResetting(false), 300);
+      setTimeout(() => setIsResetting(false), 300);
     }
-};
+  };
 
   const collapse = () => {
     if (sidebarRef.current && navbarRef.current) {
@@ -109,10 +112,14 @@ export const Navigation = () => {
           <ChevronsLeft className="h-6 w-6" />
         </div>
         <div>
-          <UserItem/>
+          <UserItem />
         </div>
         <div className="mt-4">
-          <p>Documents</p>
+          {documents?.map((document) => (
+            <p key={document._id}>
+              {document.title}
+            </p>
+          ))}
         </div>
         <div
           onMouseDown={handleMouseDown}
