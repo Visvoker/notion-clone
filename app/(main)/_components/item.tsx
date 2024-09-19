@@ -39,8 +39,8 @@ export const Item = ({
 }: ItemProps) => {
   const { user } = useUser();
   const router = useRouter();
-  const create = useMutation(api.document.create)
-  const archive = useMutation(api.document.archive)
+  const create = useMutation(api.documents.create)
+  const archive = useMutation(api.documents.archive)
 
   const onArchive = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>

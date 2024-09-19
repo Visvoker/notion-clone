@@ -13,7 +13,7 @@ import { FileIcon } from "lucide-react";
 interface DocumentListProps {
   parentDocumentId?: Id<"documents">
   level?: number;
-  data?: Doc<"documents">
+  data?: Doc<"documents">[];
 }
 
 export const DocumentList = ({
@@ -31,13 +31,13 @@ export const DocumentList = ({
     }));
   };
 
-  const documents = useQuery(api.document.getSidebar, {
+  const documents = useQuery(api.documents.getSidebar, {
     parentDocument: parentDocumentId
   });
 
   const onRedirect = (documentId: string) => {
     router.push(`/documents/${documentId}`);
-  }
+  };
 
   if (documents === undefined) {
     return (
