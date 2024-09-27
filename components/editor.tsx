@@ -10,11 +10,13 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { useTheme } from "next-themes";
 
 interface EditorProps {
+  editable?: boolean;
   onChange: (value: string) => void;
   initialContent?: string;
 }
 
 const Editor = ({
+  editable,
   onChange,
   initialContent,
 }: EditorProps) => {
@@ -36,10 +38,14 @@ const Editor = ({
     uploadFile: handleUpload
   });
 
+  const query = window.location.search;
+  console.log(query);
+
   return (
     <div>
       <div>
         <BlockNoteView
+          editable={editable}
           editor={editor}
           theme={resolvedTheme === "dark" ? "dark" : "light"}
           onChange={() => {
